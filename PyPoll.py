@@ -10,6 +10,7 @@
 
 # Import dependencies
 import csv
+import os
 import datetime
 import random
 #import numpy
@@ -20,16 +21,35 @@ import random
 #         (a)ppend - will create the file if not there, otherwise it adds to the end,
 #         (+) - open for read and write
 #
-"Assign a variable to the election_results.csv file"
-file_to_load = 'resources/election_results.csv'
+# Create a way to connect to the election results data to process
+file_to_load = os.path.join('election_analysis/resources','election_results.csv')
+
+# Create a new file for program output in analysis folder
+file_to_save = os.path.join('election_analysis/analysis','election_analysis.txt')
 
 # (1) Open the election_results.csv file for read only
-election_data = open(file_to_load,'r')
+with open(file_to_load) as election_data:
+    # Read data from election_results.csv
+    file_reader = csv.reader(election_data)
+    # Print header row
+    headers = next(file_reader)
+    print(headers)
+    # Print contents of election_results.csv
+    for row in file_reader:
+        print(row)
 
-# Perform analysis
+# (2) Process the election results 
 
 
-# Close the election_results.csv file
-election_data.close()
+
+# (#) Open the election_analysis.txt file for writing
+# (#) Write results to election_analysis.txt
+with open(file_to_save, 'w') as election_results:
+    # Write some data to our new file
+    election_results.write('Counties in the Election\n')
+    election_results.write('-------------------------\n')
+    election_results.write('Arapahoe\n')
+    election_results.write('Denver\n')
+    election_results.write('Jefferson\n')
 
 
