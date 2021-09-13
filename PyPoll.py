@@ -11,9 +11,6 @@
 # Import dependencies
 import csv
 import os
-import datetime
-import random
-#import numpy
 
 # Referencing File and opening it
 # syntax: file_variable = open(file_name, mode) modes: (r)ead, (w)rite, 
@@ -29,6 +26,7 @@ file_to_save = os.path.join('election_analysis/analysis','election_analysis.txt'
 
 # Variable to count all the votes
 total_votes = 0
+
 # Variables for the winning candidate
 winning_candidate = ""
 winning_count = 0
@@ -36,7 +34,6 @@ winning_percentage = 0
 
 # Variables to extact from the CSV file
 candidate_options = []
-# Declare an empty dictionary
 candidate_votes = {}
 
 # Open the election_results.csv file for read only
