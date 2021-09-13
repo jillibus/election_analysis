@@ -39,7 +39,7 @@ candidate_options = []
 # Declare an empty dictionary
 candidate_votes = {}
 
-# (1) Open the election_results.csv file for read only
+# Open the election_results.csv file for read only
 with open(file_to_load) as election_data:
     # Read data from election_results.csv
     file_reader = csv.reader(election_data)
@@ -47,7 +47,7 @@ with open(file_to_load) as election_data:
     # Read the Header Row
     headers = next(file_reader)
     
-    # Print each row of the CSV file
+    # Read and process each row of the CSV file
     for row in file_reader:
         # increment the total_vote count
         total_votes += 1
@@ -66,41 +66,47 @@ with open(file_to_load) as election_data:
         # Add a vote to that candidate's count
         candidate_votes[candidate_name] += 1
 
-# (#) Open the election_analysis.txt file for writing
-# (#) Write results to election_analysis.txt
-with open(file_to_save, 'w') as election_results:
-    # Write some data to our new file
-    election_results.write('Election Results\n')
-    election_results.write('-----------------------------------\n')
-    election_results.write(f'Total Votes: {total_votes:,}\n')
-    election_results.write('-----------------------------------\n')
+# Open the election_analysis.txt file for writing
+# Write results to election_analysis.txt
+with open(file_to_save, 'w') as election_output:
+    # Write some results to the terminal
+    election_results = (
+        f'\nElection Results\n'
+        f'-----------------------------------------\n'
+        f'Total Votes: {total_votes:,}\n'
+        f'-----------------------------------------\n')
+    print(election_results, end='')
 
-    # (2) Process the election results and determine winner
+    # Write the election_results to the election_output file
+    election_output.write(election_results)
+
+    # Process the election results and determine winner
     for candidate_name in  candidate_votes:
         votes = candidate_votes[candidate_name]
         vote_percentage = float(votes) / float(total_votes) * 100
-        election_results.write(f'{candidate_name}:  {vote_percentage:.1f} ({votes:,})\n')
+        candidate_results = (
+            f'{candidate_name}:  {vote_percentage:.1f}% ({votes:,})\n')
+
+        # Print candidate results to the terminal
+        print(candidate_results)
+
+        # Write the candidate results to the election_output file
+        election_output.write(candidate_results)
+
+        # Determine winning_count, winning_percentage, winning_candidate
         if (votes > winning_count) and (vote_percentage > winning_percentage):
             winning_count = votes
             winning_percentage = vote_percentage
             winning_candidate = candidate_name
     
-    election_results.write('-----------------------------------\n')
-    election_results.write(f'Winner: {winning_candidate}\n')
-    election_results.write(f'Winning Vote Count: {winning_count:,}\n')
-    election_results.write(f'Winning Percentage: {winning_percentage:.2f}\n') 
-    election_results.write('-----------------------------------\n')
+    # Print the winning candidate's results to the terminal
+    winning_candidate_summary = (
+        f'-----------------------------------------\n'
+        f'Winner: {winning_candidate}\n'
+        f'Winning Vote Count: {winning_count:,}\n'
+        f'Winning Percentage: {winning_percentage:.2f}%\n'
+        f'-----------------------------------------\n')
+    print(winning_candidate_summary)
 
-
-# Print to the terminal the results
-
-#for candidate_name in  candidate_votes:
-#    votes = candidate_votes[candidate_name]
-#    vote_percentage = float(votes) / float(total_votes) * 100
- #   print(f'{candidate_name}:  {vote_percentage:.1f}% ({votes:,})\n')
-
-#print(f'The winner of the election is {winning_candidate}\n')
-#print(f'with {winning_count:,} votes making up {winning_percentage:.2f}% of the total votes')
-
-
-
+    # Write the winning_candidate_summary results to the election_output file
+    election_output.write(winning_candidate_summary)
