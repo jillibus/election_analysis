@@ -1,0 +1,19 @@
+{
+    "workbench.colorTheme": "Abyss",
+    "editor.fontSize": 14,
+    "window.autoDetectColorScheme": true,
+    "git.allowForcePush": true,
+    "git.alwaysShowStagedChangesResourceGroup": true,
+    "git.autoStash": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "timeline.excludeSources": [
+        "git-history"
+    ],
+    "files.autoSave": "afterDelay",
+    "workbench.iconTheme": "ayu",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.settings.editor": "json",
+    "workbench.settings.openDefaultSettings": true,
+    "workbench.settings.useSplitJSON": true
+    "python.pythonPath": "/usr/local/bin/python3"
+}
